@@ -4,6 +4,7 @@
   "description": "This is a website for gym members to book slots and register.",
   "main": "app.js",
   "scripts": {
+    "test": "npx jest",
     "start": "node app.js"
   },
   "repository": {
@@ -20,7 +21,12 @@
   },
   "homepage": "https://github.com/atharvaa9/GymJam#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "mongodb": "^6.2.0"
+    "mongodb": "^6.2.0",
+    "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

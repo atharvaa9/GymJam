@@ -1,15 +1,18 @@
-var _require = require('./mongoConnection.js'),
-    dbConnection = _require.dbConnection;
+const dbConnection = require('./mongoConnection');
 
-var getCollectionFn = function getCollectionFn(collection) {
-  var _col = undefined;
+const getCollectionFn = (collection) => {
+  let _col = undefined;
 
-  return function () {
-    return _col || dbConnection().then(function (db) {
-      _col = db.collection(collection);
-      return _col;
-    });
+  return async () => {
+    if (!_col) {
+      const db = await dbConnection.dbConnection();
+      _col = await db.collection(collection);
+    }
+
+    return _col;
   };
 };
 
-exports.members = getCollectionFn('members');
+module.exports = {
+  members: getCollectionFn('members'),
+};

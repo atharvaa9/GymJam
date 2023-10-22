@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
-const data = require('../data/index')
-const memberData = data.memberData
+const data= require('../data/index')
+const memberData = data.members
 // var memberData = require('../data/index.js').memberData;
 var ObjectId = require('mongodb').ObjectId;
 var helper = require("../helpers.js");
@@ -10,35 +10,30 @@ router
   .route('/')
   .get(async (req, res) => {
 	try{
-    console.log('in route')
 		let membersList = await memberData.getAll();
 		res.json(membersList);
 	  } catch (e) {
 		res.sendStatus(500);
 	  }
 	})
-
   .post(async (req, res) => {
   	const memberInfo = req.body;
-
 	if (!memberInfo.name) {
 		res.status(400).json({ error: 'name must be provided' });
 		return;
 	}
 	if (!memberInfo.email) {
-		res.status(400).json({ error: 'genre must be provided' });
+		res.status(400).json({ error: 'email must be provided' });
 		return;
 	}
 	if (!memberInfo.phoneNumber) {
-		res.status(400).json({ error: 'website must be provided' });
+		res.status(400).json({ error: 'phonenumber must be provided' });
 		return;
 	}
 	if (!memberInfo.address) {
-		res.status(400).json({ error: 'recordCompany must be provided' });
+		res.status(400).json({ error: 'address must be provided' });
 		return;
 	}
-
-
   	if (
     	typeof memberInfo.name !== 'string' ||
     	typeof memberInfo.email !== 'string' || 
@@ -90,7 +85,6 @@ router
     try {
       await memberData.get(req.params.id);
     } catch (e) {
-      console.log(e);
       res.status(404).json({ error: 'member not found' });
       return;
     }
@@ -98,7 +92,6 @@ router
       await memberData.remove(req.params.id);
       res.status(200).json({ memberId: req.params.id, deleted: true });
     } catch (e) {
-      console.log(e);
       res.status(500).json({ e });
     }
   })

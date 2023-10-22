@@ -1,6 +1,7 @@
-var members = require("../config/mongoCollections.js").members;
-var ObjectId = require("mongodb").ObjectId;
-var helper = require("../helpers.js");
+const mongoCollections = require('../config/mongoCollections');
+const members = mongoCollections.members;
+const {ObjectId} = require('mongodb');
+const helpers = require('../helpers');
 
 const create = async (
   //memberId,
@@ -36,7 +37,7 @@ const create = async (
   //} else {
     //memberid = memberIdToCheck
   //}
-  let memberIdToCheck = await helper.generateMemberID();
+  let memberIdToCheck = await helpers.generateMemberID();
   let newMember = {
     memberid: memberIdToCheck,
     name: name,
@@ -48,7 +49,6 @@ const create = async (
   const membersCollection = await members();
   const insertInfo = await membersCollection.insertOne(newMember);
   // console.log('entered successfully')
-  console.log('in function')
   if (!insertInfo.acknowledged || !insertInfo.insertedId) throw "Could not add a new member";
 
   // const newId = insertInfo.insertedId.toString();
@@ -69,9 +69,8 @@ const getAll = async () => {
 };
 
 const get = async (id) => {
-  id = helper.checkId(id)
+  id = helpers.checkId(id)
   const membersCollection = await members();
-  console.log()
   const member = await membersCollection.findOne({ memberid: id });
   if (member === null) throw "No member with the given id";
   member._id = member._id.toString();
@@ -79,7 +78,7 @@ const get = async (id) => {
 };
 
 const remove = async (id) => {
-  id = helper.checkId(id)
+  id = helpers.checkId(id)
   const membersCollection = await members();
   const deletionInfo = await membersCollection.findOneAndDelete({
     memberid: id
