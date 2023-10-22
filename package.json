@@ -1,0 +1,26 @@
+{
+  "name": "gymjam",
+  "version": "1.0.0",
+  "description": "This is a website for gym members to book slots and register.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atharvaa9/GymJam.git"
+  },
+  "keywords": [
+    "Gym"
+  ],
+  "author": "Atharva Parte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atharvaa9/GymJam/issues"
+  },
+  "homepage": "https://github.com/atharvaa9/GymJam#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.2.0"
+  }
+}
